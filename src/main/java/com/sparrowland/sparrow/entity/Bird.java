@@ -5,12 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import lombok.Builder;
+
 
 @Entity
 @Table(name = "Birds")
+@Builder
 public class Bird {
 
 	@Id
@@ -18,20 +21,35 @@ public class Bird {
 	private int id;
 	private String title;
 	private String subTitle;
+	@Lob
+	@Column(length = 100000)
+	private byte[] image;
 	@Column(length = 100000)
 	@NotNull
 	private String about;
+
+	
+	
 
 	public Bird() {
 		super();
 	}
 
-	public Bird(int id, String title, String subTitle, String about) {
+	public Bird(int id, String title, String subTitle, String about, byte[] image) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.about = about;
+		this.image = image;
+	}
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public int getId() {
